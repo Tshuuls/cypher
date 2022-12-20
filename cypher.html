@@ -70,14 +70,16 @@
         </style>
     </head>
     <body>
-        <div class="grid" x-data="{ value: '', chars: [], }">
+        <div class="grid" x-data="{ value: '', chars: [], fulltext:'', fullchars: []}">
             <div class="chars">
                 <template x-for="char in chars">
                     <img :src="'characters/'+char+'.svg'">
                 </template>
             </div>
-            <input class="phrase" type="text" x-model="value">
+            <input class="phrase" type="text" x-model="value" disabled>
+            <button class="clear" x-on:click="value = value.substring(0,value.length-1), chars.splice(-1, 1)" tooltip="remove last input">Back</button>
             <button class="clear" x-on:click="value = '', chars=[]">Clear</button>
+            <button class="clear" x-on:click="fulltext += ' ', fulltext += value,value = '',fullchars= fullchars.concat(chars), chars=[]">Store</button>
             <div class="char" x-on:click="value += 'a', chars.push('a')"><img src="characters/a.svg"> a</div>
             <div class="char" x-on:click="value += 'b', chars.push('b')"><img src="characters/b.svg"> b</div>
             <div class="char" x-on:click="value += 'c', chars.push('c')"><img src="characters/c.svg"> c</div>
@@ -106,8 +108,16 @@
             <div class="char" x-on:click="value += 'z', chars.push('z')"><img src="characters/z.svg"> z</div>
             <div class="char" x-on:click="value += 'th', chars.push('th')"><img src="characters/th.svg"> th</div>
             <div class="char" x-on:click="value += ' ', chars.push('space')"><img src="characters/space.svg">space</div>
-
             
+			
+            <div class="chars">
+                <template x-for="char in fullchars">
+                    <img :src="'characters/'+char+'.svg'">
+                </template>
+            </div>
+			<textarea class="phrase"  x-model="fulltext" disabled style="height:100px" placeholder="Store phrases here"> </textarea>
+            <button class="clear" x-on:click="fulltext = '', fullchars=[]">Clear Store</button>
         </div>
+		
     </body>
 </html>
