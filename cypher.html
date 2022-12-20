@@ -77,7 +77,7 @@
                 </template>
             </div>
             <input class="phrase" type="text" x-model="value" disabled>
-            <button class="clear" x-on:click="value = value.substring(0,value.length-1), chars.splice(-1, 1)" tooltip="remove last input">Back</button>
+            <button class="clear" x-on:click="chars[chars.length-1]==='th' ? value = value.substring(0,value.length-2):value = value.substring(0,value.length-1), chars.splice(-1, 1)" tooltip="remove last input">Back</button>
             <button class="clear" x-on:click="value = '', chars=[]">Clear</button>
             <button class="clear" x-on:click="fulltext += ' ', fulltext += value,value = '',fullchars= fullchars.concat(chars), chars=[]">Store</button>
             <div class="char" x-on:click="value += 'a', chars.push('a')"><img src="characters/a.svg"> a</div>
